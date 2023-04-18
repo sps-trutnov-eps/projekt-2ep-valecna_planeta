@@ -13,7 +13,21 @@ namespace ValecnaPlaneta.Controllers
         [HttpPost]
         public IActionResult Index(string zadanyPrikaz)
         {
-            throw new NotImplementedException();
+            
+            if (zadanyPrikaz == null || zadanyPrikaz.Trim() == "")
+                return View();
+
+            zadanyPrikaz = zadanyPrikaz.Trim();
+
+            if (zadanyPrikaz == "help" || zadanyPrikaz == "Help")
+                return RedirectToAction("/Engine/Help");
+
+            else if (zadanyPrikaz == "kapitál" || zadanyPrikaz == "Kapitál")
+                return Redirect("/Engine/Kapital");
+
+            else
+                throw new NotImplementedException();
+
         }
     }
 }
