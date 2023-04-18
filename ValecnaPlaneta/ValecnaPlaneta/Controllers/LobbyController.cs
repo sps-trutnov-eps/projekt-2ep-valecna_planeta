@@ -15,6 +15,5 @@ namespace ValecnaPlaneta.Controllers
 
             return View();
         }
-        public IActionResult Error() { }
     }
 }
