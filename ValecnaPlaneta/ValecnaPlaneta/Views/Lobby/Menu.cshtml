@@ -2,16 +2,18 @@
 @model ValecnaPlaneta.Views.Lobby.MenuModel
 @{
 }
+<link />
 
 
-<div id="container">
-    <table>
+<div id="menu">
+    <table id="vytvor">
         <tr>
-            <th><form> action="/Lobby/Vytvor"</form></th>
+            <th><form> <a href="Vytvor.cshtml">Nová Hra</a></form></th>
         </tr>
-
+    </table>
+    <table id="vyber">
         <tr>
-            <th>Připojit</th>
+            <th><form> <a href="Vyber.cshtml">Připojit</a></form></th>
         </tr>
     </table>
 </div>
