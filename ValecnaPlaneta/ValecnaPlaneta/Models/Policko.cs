@@ -5,7 +5,7 @@ namespace ValecnaPlaneta.Models
     public class Policko
     {
         [Key]
-        int Id { get; set; }
+        public int Id { get; set; }
         [Required]
         virtual public Hra HraKamPatri { get; set; }
         public enum Stav { Prazdno, Zabrano, Bunkr } 

@@ -5,7 +5,7 @@ namespace ValecnaPlaneta.Models
     public class Hra
     {
         [Key]
-        int Id { get; set; }
+        public int Id { get; set; }
         [Required]
         public bool Soukroma { get; set; }
         [Required]
