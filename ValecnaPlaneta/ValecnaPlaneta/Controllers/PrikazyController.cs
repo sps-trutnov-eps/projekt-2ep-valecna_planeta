@@ -20,7 +20,7 @@ namespace ValecnaPlaneta.Controllers
             zadanyPrikaz = zadanyPrikaz.Trim();
 
             if (zadanyPrikaz == "help" || zadanyPrikaz == "Help")
-                return RedirectToAction("/Engine/Help");
+                return Redirect("/Engine/Help");
 
             else if (zadanyPrikaz == "kapitál" || zadanyPrikaz == "Kapitál")
                 return Redirect("/Engine/Kapital");
