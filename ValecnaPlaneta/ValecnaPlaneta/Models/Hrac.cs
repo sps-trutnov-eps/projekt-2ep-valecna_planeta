@@ -3,7 +3,8 @@
     public class Hrac
     {
         string ID { get; set; }
-        bool Zije { get; set; }
-        int Kapital { get; set; }
+        public Hra HraKamPatri { get; set; }
+        public bool Zije { get; set; }
+        public int Kapital { get; set; }
     }
 }
