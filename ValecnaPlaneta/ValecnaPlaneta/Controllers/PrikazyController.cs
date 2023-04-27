@@ -16,17 +16,23 @@ namespace ValecnaPlaneta.Controllers
             if (zadanyPrikaz == null || zadanyPrikaz.Trim() == "")
                 return View();
 
-            zadanyPrikaz = zadanyPrikaz.Trim();
+            zadanyPrikaz = zadanyPrikaz.Trim().ToLower();
 
-            if (zadanyPrikaz == "prijem" || zadanyPrikaz == "Prijem")
+            if (zadanyPrikaz == "income")
                 return Redirect("/Engine/Prijem");
 
-            else if (zadanyPrikaz == "posli" || zadanyPrikaz == "Posli")
+            else if (zadanyPrikaz == "send scout")
                 return Redirect("/Engine/Posli");
 
-            if (zadanyPrikaz != "prijem" || zadanyPrikaz != "Prijem")
+            else if (zadanyPrikaz == "send solider")
+                return Redirect("/Engine/Posli");
+
+            else if (zadanyPrikaz == "send infiltrator")
+                return Redirect("/Engine/Posli");
+
+            if (zadanyPrikaz != "income")
             {
-                ViewData["chyba"] = "Špatná syntaxe. Napište Help pro více informací.";
+                ViewData["chyba"] = "Wrong syntax. Write Help for more information.";
                 return View();
             }
             throw new NotImplementedException();
