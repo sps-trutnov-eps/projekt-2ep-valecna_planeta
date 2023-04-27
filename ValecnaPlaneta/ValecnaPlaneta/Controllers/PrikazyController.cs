@@ -19,13 +19,16 @@ namespace ValecnaPlaneta.Controllers
             zadanyPrikaz = zadanyPrikaz.Trim();
 
             if (zadanyPrikaz == "prijem" || zadanyPrikaz == "Prijem")
-                return RedirectToAction("/Engine/Prijem");
+                return Redirect("/Engine/Prijem");
 
             else if (zadanyPrikaz == "posli" || zadanyPrikaz == "Posli")
-                return RedirectToAction("/Engine/Posli");
+                return Redirect("/Engine/Posli");
 
             if (zadanyPrikaz != "prijem" || zadanyPrikaz != "Prijem")
-                return View("blbej");
+            {
+                ViewData["chyba"] = "Špatná syntaxe. Napište Help pro více informací.";
+                return View();
+            }
             throw new NotImplementedException();
         }
     }

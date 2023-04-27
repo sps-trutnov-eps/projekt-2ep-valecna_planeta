@@ -1,11 +1,20 @@
-﻿@model string;
-
-@{
+﻿@{
     ViewData["Title"] = "Home Page";
 }
 
-<form method="post" action="/Prikazy/Index">
-    <input type="text" name="zadanyPrikaz" placeholder="Zadejte příkaz..." />
-</form>
+@if (ViewData.ContainsKey("chyba"))
+{
+    
 
+    <form method="post" action="/Prikazy/Index">
+        <input type="text" name="zadanyPrikaz" placeholder="Zadejte příkaz..." />
+    </form>
 
+    <span>@ViewData["chyba"]</span>
+}
+else
+{
+    <form method="post" action="/Prikazy/Index">
+        <input type="text" name="zadanyPrikaz" placeholder="Zadejte příkaz..." />
+    </form>
+}
