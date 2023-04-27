@@ -1,10 +1,16 @@
-﻿namespace ValecnaPlaneta.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace ValecnaPlaneta.Models
 {
     public class Hrac
     {
-        string ID { get; set; }
-        public Hra HraKamPatri { get; set; }
+        [Key]
+        string Id { get; set; }
+        [Required]
+        virtual public Hra HraKamPatri { get; set; }
+        [Required]
         public bool Zije { get; set; }
+        [Required]
         public int Kapital { get; set; }
     }
 }

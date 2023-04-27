@@ -1,11 +1,18 @@
-﻿namespace ValecnaPlaneta.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace ValecnaPlaneta.Models
 {
     public class Hra
     {
-        int ID { get; set; }
-        bool Soukroma { get; set; }
-        string Token { get; set; }
-        public List<Policko> Policka { get; set; }
-        public List<Hrac> Hraci { get; set; }
+        [Key]
+        int Id { get; set; }
+        [Required]
+        public bool Soukroma { get; set; }
+        [Required]
+        public string Token { get; set; }
+        [Required]
+        virtual public List<Policko> Policka { get; set; }
+        [Required]
+        virtual public List<Hrac> Hraci { get; set; }
     }
 }
