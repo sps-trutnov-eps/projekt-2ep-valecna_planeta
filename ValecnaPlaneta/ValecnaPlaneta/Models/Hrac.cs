@@ -2,8 +2,8 @@
 {
     public class Hrac
     {
-        string ID;
-        bool Zije;
-        int Kapital;
+        string ID { get; set; }
+        bool Zije { get; set; }
+        int Kapital { get; set; }
     }
 }

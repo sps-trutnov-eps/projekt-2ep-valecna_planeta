@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+
 namespace ValecnaPlaneta
 {
     public class Program
@@ -8,6 +10,10 @@ namespace ValecnaPlaneta
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddDbContext<Data.NasDbContext>(options =>
+                options.UseLazyLoadingProxies()
+                .UseSqlServer(builder.Configuration.GetConnectionString("MujConnectionString")));
 
             var app = builder.Build();
 

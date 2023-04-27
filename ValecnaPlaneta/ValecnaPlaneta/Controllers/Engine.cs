@@ -10,27 +10,27 @@ namespace ValecnaPlaneta.Controllers
         }
         public IActionResult PoslatScouta(int id)
         {
-
+            throw new NotImplementedException();
         }
         public IActionResult PoslatTezebniJednotku(int id) 
         {
-
+            throw new NotImplementedException();
         }
         public IActionResult PoslatVojaka(int id) 
         {
-
+            throw new NotImplementedException();
         }
         public IActionResult PoslatInfiltratora(int id)
         {
-
+            throw new NotImplementedException();
         }
         public IActionResult Kapital()
         {
-
+            throw new NotImplementedException();
         }
         public IActionResult Prijem()
         {
-
+            throw new NotImplementedException();
         }
     }
 }

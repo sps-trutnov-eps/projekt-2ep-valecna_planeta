@@ -2,8 +2,9 @@
 {
     public class Policko
     {
-        int ID;
-        public enum Stav { Prazdno, Zabrano, Bunkr }
-        public string Vlastnik;
+        int ID { get; set; }
+        Hra hra { get; set; }
+        public enum Stav { Prazdno, Zabrano, Bunkr } 
+        public string Vlastnik { get; set; }
     }
 }
