@@ -18,6 +18,10 @@ namespace ValecnaPlaneta.Controllers
 
             zadanyPrikaz = zadanyPrikaz.Trim().ToLower();
 
+            //string[] slovaVPrikazu = zadanyPrikaz.Split(' ');   
+            //zadanyPrikaz = (slovaVPrikazu[0] + " " + slovaVPrikazu[1]);
+
+
             if (zadanyPrikaz == "income")
                 return Redirect("/Engine/Prijem");
 
