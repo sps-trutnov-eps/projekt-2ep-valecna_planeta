@@ -5,6 +5,14 @@
 @if (ViewData.ContainsKey("chyba"))
 {
     
+@if (ViewData.ContainsKey("help"))
+{
+    <form method="post" action="/Prikazy/Index">
+        <input type="text" name="zadanyPrikaz" placeholder="Zadejte příkaz..." />
+    </form>
+
+    <span>@ViewData["help"]</span>
+}
 
     <form method="post" action="/Prikazy/Index">
         <input type="text" name="zadanyPrikaz" placeholder="Zadejte příkaz..." />
@@ -18,3 +26,4 @@ else
         <input type="text" name="zadanyPrikaz" placeholder="Zadejte příkaz..." />
     </form>
 }
+

@@ -35,7 +35,16 @@ namespace ValecnaPlaneta.Controllers
                 ViewData["chyba"] = "Wrong syntax. Write Help for more information.";
                 return View();
             }
-            throw new NotImplementedException();
+            if (zadanyPrikaz == "help" || zadanyPrikaz == "Help")
+            {
+                ViewData["help"] = "Available commands: Help, Income, Capital, Send + soldier/scout/infiltrator/";
+                return View();
+            }
+            else if (zadanyPrikaz == "capital" || zadanyPrikaz == "Capital")
+                return Redirect("/Engine/Kapital");
+
+            else
+                throw new NotImplementedException();
         }
     }
 }
