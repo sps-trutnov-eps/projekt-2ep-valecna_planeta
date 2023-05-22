@@ -8,7 +8,6 @@ namespace ValecnaPlaneta.Models
         public int Id { get; set; }
         [Required]
         virtual public Hra HraKamPatri { get; set; }
-        public int cislo { get; set; }
         public enum Stav { Prazdno, Zabrano, Bunkr } 
         public string Vlastnik { get; set; }
     }
