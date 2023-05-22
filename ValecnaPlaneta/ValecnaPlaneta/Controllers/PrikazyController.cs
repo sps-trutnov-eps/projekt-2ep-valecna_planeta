@@ -21,25 +21,28 @@ namespace ValecnaPlaneta.Controllers
             if (zadanyPrikaz == "income")
                 return Redirect("/Engine/Prijem");
 
-            else if (zadanyPrikaz == "send scout")
-                return Redirect("/Engine/Posli");
-
-            else if (zadanyPrikaz == "send soldier")
-                return Redirect("/Engine/Posli");
-
-            else if (zadanyPrikaz == "send infiltrator")
-                return Redirect("/Engine/Posli");
-
             else if (zadanyPrikaz == "capital")
                 return Redirect("/Engine/Kapital");
 
+            else if (zadanyPrikaz == "send scout")
+                return Redirect("/Engine/PoslatScouta");
+
+            else if (zadanyPrikaz == "send soldier")
+                return Redirect("/Engine/PoslatVojaka");
+
+            else if (zadanyPrikaz == "send infiltrator")
+                return Redirect("/Engine/PoslatInfiltratora");
+
+            else if (zadanyPrikaz == "send miner")
+                return Redirect("/Engine/PoslatTezebniJednotku");
+
             else if (zadanyPrikaz == "help")
             {
-                ViewData["help"] = "Available commands: Help, Income, Capital, Send + soldier/scout/infiltrator/";
+                ViewData["help"] = "Available commands: Help, Income, Capital, Send + soldier/scout/miner/infiltrator";
                 return View();
             }
             else
-            { 
+            {
                 ViewData["chyba"] = "Wrong syntax. Write Help for more information.";
                 return View();
             }
