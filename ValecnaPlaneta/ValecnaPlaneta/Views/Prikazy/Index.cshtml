@@ -4,21 +4,21 @@
 
 @if (ViewData.ContainsKey("chyba"))
 {
-    
-@if (ViewData.ContainsKey("help"))
-{
-    <form method="post" action="/Prikazy/Index">
-        <input type="text" name="zadanyPrikaz" placeholder="Zadejte příkaz..." />
-    </form>
-
-    <span>@ViewData["help"]</span>
-}
 
     <form method="post" action="/Prikazy/Index">
         <input type="text" name="zadanyPrikaz" placeholder="Zadejte příkaz..." />
     </form>
 
     <span>@ViewData["chyba"]</span>
+}
+
+else if (ViewData.ContainsKey("help"))
+{
+    <form method="post" action="/Prikazy/Index">
+        <input type="text" name="zadanyPrikaz" placeholder="Zadejte příkaz..." />
+    </form>
+
+    <span>@ViewData["help"]</span>
 }
 else
 {

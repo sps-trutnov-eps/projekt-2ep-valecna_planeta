@@ -24,27 +24,26 @@ namespace ValecnaPlaneta.Controllers
             else if (zadanyPrikaz == "send scout")
                 return Redirect("/Engine/Posli");
 
-            else if (zadanyPrikaz == "send solider")
+            else if (zadanyPrikaz == "send soldier")
                 return Redirect("/Engine/Posli");
 
             else if (zadanyPrikaz == "send infiltrator")
                 return Redirect("/Engine/Posli");
 
-            if (zadanyPrikaz != "income")
-            {
-                ViewData["chyba"] = "Wrong syntax. Write Help for more information.";
-                return View();
-            }
-            if (zadanyPrikaz == "help" || zadanyPrikaz == "Help")
+            else if (zadanyPrikaz == "capital")
+                return Redirect("/Engine/Kapital");
+
+            else if (zadanyPrikaz == "help")
             {
                 ViewData["help"] = "Available commands: Help, Income, Capital, Send + soldier/scout/infiltrator/";
                 return View();
             }
-            else if (zadanyPrikaz == "capital" || zadanyPrikaz == "Capital")
-                return Redirect("/Engine/Kapital");
-
             else
-                throw new NotImplementedException();
+            { 
+                ViewData["chyba"] = "Wrong syntax. Write Help for more information.";
+                return View();
+            }
         }
+
     }
 }
