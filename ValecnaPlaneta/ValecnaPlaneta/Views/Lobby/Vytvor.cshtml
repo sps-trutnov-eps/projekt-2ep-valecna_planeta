@@ -1,4 +1,7 @@
-﻿@page
-@model ValecnaPlaneta.Views.Lobby.VytvorModel
-@{
-}
+﻿<form action="/Prikazy/index">
+    <input type="submit" value="Vytvořit" name="vytvorit"/>
+    <input type="text" value="Jméno" name="jmeno"/>
+    <input type="password" value="Heslo" name="heslo"/>
+    <input type="checkbox" value="Soukromá hra" id="soukroma" name="soukromaHra"/>
+    <label for="soukroma">Soukromá hra</label><br>
+</form>
