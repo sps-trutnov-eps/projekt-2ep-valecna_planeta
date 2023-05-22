@@ -1,9 +1,18 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ValecnaPlaneta.Data;
+using ValecnaPlaneta.Data;
+using ValecnaPlaneta.Models;
 
 namespace ValecnaPlaneta.Controllers
 {
     public class Engine : Controller
     {
+        private NasDbContext naseData;
+
+        public Engine(NasDbContext databaze)
+        {
+            naseData = databaze;
+        }
         public IActionResult Index()
         {
             return View();
@@ -31,6 +40,13 @@ namespace ValecnaPlaneta.Controllers
         public IActionResult Prijem()
         {
             throw new NotImplementedException();
+        }
+
+        public IActionResult PridatPole(int id)
+        {
+            Policko novePole = new Policko(){ Id = id };
+            naseData.Policka.Add(novePole); 
+            return RedirectToAction("Home", "Moje");
         }
     }
 }
