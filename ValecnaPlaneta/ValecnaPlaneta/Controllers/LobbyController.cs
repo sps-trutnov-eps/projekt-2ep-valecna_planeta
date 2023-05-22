@@ -4,17 +4,17 @@ namespace ValecnaPlaneta.Controllers
 {
     public class LobbyController : Controller
     {
-        public IActionResult Index()
-        {
+        [HttpGet]
+        public IActionResult Vytvor()
+        {          
             return View();
         }
 
-        public IActionResult Menu()
+        [HttpPost]
+        public IActionResult Vytvor(string jmeno, string heslo)
         {
-
 
             return View();
         }
-        public IActionResult Error() { }
     }
 }
