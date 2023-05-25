@@ -44,9 +44,9 @@ namespace ValecnaPlaneta.Controllers
 
         public IActionResult PridatPole(int id)
         {
-            Policko novePole = new Policko(){ Id = id };
+            Policko novePole = new Policko();
             naseData.Policka.Add(novePole); 
-            return RedirectToAction("Home", "Moje");
+            return RedirectToAction("Moje", "Home");
         }
     }
 }

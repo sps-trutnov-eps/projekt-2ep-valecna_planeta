@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ValecnaPlaneta.Data;
 
@@ -10,9 +11,11 @@ using ValecnaPlaneta.Data;
 namespace ValecnaPlaneta.Migrations
 {
     [DbContext(typeof(NasDbContext))]
-    partial class NasDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230525131235_PrvotniUpravaModelu")]
+    partial class PrvotniUpravaModelu
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -74,9 +77,6 @@ namespace ValecnaPlaneta.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("HraKamPatriId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Stav")
                         .HasColumnType("int");
 
                     b.Property<string>("Vlastnik")
