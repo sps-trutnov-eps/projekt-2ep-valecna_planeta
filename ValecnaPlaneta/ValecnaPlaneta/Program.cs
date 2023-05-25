@@ -14,7 +14,7 @@ namespace ValecnaPlaneta
             builder.Services.AddDbContext<Data.NasDbContext>(options =>
                 options.UseLazyLoadingProxies()
                 .UseSqlServer(builder.Configuration.GetConnectionString("NasConnectionString")));
-
+            
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

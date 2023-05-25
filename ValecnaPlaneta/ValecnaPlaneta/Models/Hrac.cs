@@ -12,5 +12,6 @@ namespace ValecnaPlaneta.Models
         public bool Zije { get; set; }
         [Required]
         public int Kapital { get; set; }
+        public string? Token { get; set; }
     }
 }

@@ -5,39 +5,35 @@ using ValecnaPlaneta.Models;
 
 namespace ValecnaPlaneta.Controllers
 {
-    public class Engine : Controller
+    public class EngineController : Controller
     {
         private NasDbContext naseData;
 
-        public Engine(NasDbContext databaze)
+        public EngineController(NasDbContext databaze)
         {
             naseData = databaze;
         }
-        public IActionResult Index()
-        {
-            return View();
-        }
-        public IActionResult PoslatScouta(int id)
+        public string PoslatScouta(int id)
         {
             throw new NotImplementedException();
         }
-        public IActionResult PoslatTezebniJednotku(int id) 
+        public void PoslatTezebniJednotku(int id) 
         {
             throw new NotImplementedException();
         }
-        public IActionResult PoslatVojaka(int id) 
+        public void PoslatVojaka(int id) 
         {
             throw new NotImplementedException();
         }
-        public IActionResult PoslatInfiltratora(int id)
+        public void PoslatInfiltratora(int id)
         {
             throw new NotImplementedException();
         }
-        public IActionResult Kapital()
+        public int Kapital(string tokenHrace)
         {
             throw new NotImplementedException();
         }
-        public IActionResult Prijem()
+        public int Prijem()
         {
             throw new NotImplementedException();
         }
