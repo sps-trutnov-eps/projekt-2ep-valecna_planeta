@@ -42,7 +42,7 @@ namespace ValecnaPlaneta.Controllers
 
             else if (zadanyPrikaz == "help")
             {
-                ViewData["help"] = "Available commands: Help, Income, Capital, Send + soldier/scout/miner/infiltrator";
+                ViewData["help"] = "Available commands: Help, Income, Capital, Send + soldier/scout/miner/infiltrator + písmeno políčka a číslo políčka";
                 return View();
             }
             else
