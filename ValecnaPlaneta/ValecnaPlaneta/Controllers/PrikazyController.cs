@@ -19,10 +19,34 @@ namespace ValecnaPlaneta.Controllers
             zadanyPrikaz = zadanyPrikaz.Trim().ToLower();
 
             if (zadanyPrikaz == "income")
-                return Redirect("/Engine/Prijem");
+            {
+                string? uzivatel = HttpContext.Session.GetString("uzivatel");
+
+                bool uspech = EngineController.Prijem(uzivatel);
+
+                if (uspech)
+                    return View();
+                else
+                {
+                    ViewData["chyba"] = "Wrong syntax. Write Help for more information.";
+                    return View();
+                }
+            }
 
             else if (zadanyPrikaz == "capital")
-                return Redirect("/Engine/Kapital");
+            {
+                int? hra = HttpContext.Session.GetInt32("hra");
+
+                bool uspech = EngineController.Prijem(hra);
+
+                if (uspech)
+                    return View();
+                else
+                {
+                    ViewData["chyba"] = "Wrong syntax. Write Help for more information.";
+                    return View();
+                }
+            }
 
             else if (zadanyPrikaz == "help")
             {
@@ -30,21 +54,49 @@ namespace ValecnaPlaneta.Controllers
                 return View();
             }
 
+            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            
             string[] slovaVPrikazu = zadanyPrikaz.Split(' ');
             zadanyPrikaz = (slovaVPrikazu[0] + " " + slovaVPrikazu[1]);
 
             int cislo;
-            if (slovaVPrikazu.Length < 3 || !int.TryParse(slovaVPrikazu[2],out cislo))
-            { 
+            if (slovaVPrikazu.Length < 3 || !int.TryParse(slovaVPrikazu[2], out cislo))
+            {
                 ViewData["chyba"] = "Wrong syntax. Write Help for more information.";
                 return View();
             }
 
             if (zadanyPrikaz == "send scout")
-                return Redirect("/Engine/PoslatScouta/" + slovaVPrikazu[2]);
+            {
+                string? uzivatel = HttpContext.Session.GetString("uzivatel");
+                int? hra = HttpContext.Session.GetInt32("hra");
+
+                bool uspech = EngineController.PoslatScouta(slovaVPrikazu[2], uzivatel, hra);
+
+                if (uspech)
+                    return View();
+                else
+                {
+                    ViewData["chyba"] = "Wrong syntax. Write Help for more information.";
+                    return View();
+                }
+            }
 
             else if (zadanyPrikaz == "send soldier")
-                return Redirect("/Engine/PoslatVojaka/" + slovaVPrikazu[2]);
+            {
+                string? uzivatel = HttpContext.Session.GetString("uzivatel");
+                int? hra = HttpContext.Session.GetInt32("hra");
+
+                bool uspech = EngineController.PoslatVojaka(slovaVPrikazu[2], uzivatel, hra);
+
+                if (uspech)
+                    return View();
+                else
+                {
+                    ViewData["chyba"] = "Wrong syntax. Write Help for more information.";
+                    return View();
+                }
+            }
 
             else if (zadanyPrikaz == "send infiltrator")
             {
@@ -57,13 +109,28 @@ namespace ValecnaPlaneta.Controllers
                     return View();
                 else
                 {
-
+                    ViewData["chyba"] = "Wrong syntax. Write Help for more information.";
+                    return View();
                 }
 
-
             }
-            else if (zadanyPrikaz == "send miner")
-                return Redirect("/Engine/PoslatTezebniJednotku/" + slovaVPrikazu[2]);
+            else if (zadanyPrikaz == "send miner") 
+            {
+                string? uzivatel = HttpContext.Session.GetString("uzivatel");
+                int? hra = HttpContext.Session.GetInt32("hra");
+
+                bool uspech = EngineController.PoslatTezebniJednotku(slovaVPrikazu[2], uzivatel, hra);
+
+                if (uspech)
+                    return View();
+                else
+                {
+                    ViewData["chyba"] = "Wrong syntax. Write Help for more information.";
+                    return View();
+                }
+            }
+
+            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
             else
             {
