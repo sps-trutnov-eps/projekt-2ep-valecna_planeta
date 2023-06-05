@@ -6,19 +6,16 @@
 
 <link />
 
-<form action="/Lobby/Menu">
-    <input type="submit" value="Připojit"/>
-</form>
 
 <div id="menu">
     <table id="vytvor">
         <tr>
-            <th><form> <a href="Vytvor.cshtml">Nová Hra</a></form></th>
+            <th> <form action="/Lobby/Vytvor"> <input type="submit" value="Nová hra"/> </form> </th>
         </tr>
     </table>
     <table id="vyber">
         <tr>
-            <th><form> <a href="Vyber.cshtml">Připojit</a></form></th>
+            <th> <form action="/Lobby/Vyber"> <input type="submit" value="Připojit"/> </form> </th>
         </tr>
     </table>
 </div>

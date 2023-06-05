@@ -27,5 +27,11 @@ namespace ValecnaPlaneta.Controllers
         {
             return View();
         }
+
+        [HttpGet]
+        public IActionResult Heslo()
+        {
+            return View();
+        }
     }
 }
