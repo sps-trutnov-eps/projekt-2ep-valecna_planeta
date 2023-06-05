@@ -1,7 +1,7 @@
 ﻿<form action="/Prikazy/index">
-    <input type="submit" value="Vytvořit" name="vytvorit"/>
-    <input type="text" value="Jméno" name="jmeno"/>
-    <input type="password" value="Heslo" name="heslo"/>
+    <input type="submit" value="Vytvořit" name="vytvorit"/>        
+    <input type="text" name="jmeno" placeholder="Jméno" required/>  
+    <input type="password" name="heslo" placeholder="Heslo (min. 8 znaků)" minlength="8" required/>
     <input type="checkbox" value="Soukromá hra" id="soukroma" name="soukromaHra"/>
     <label for="soukroma">Soukromá hra</label><br>
 </form>
