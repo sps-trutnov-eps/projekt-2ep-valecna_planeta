@@ -47,8 +47,21 @@ namespace ValecnaPlaneta.Controllers
                 return Redirect("/Engine/PoslatVojaka/" + slovaVPrikazu[2]);
 
             else if (zadanyPrikaz == "send infiltrator")
-                return Redirect("/Engine/PoslatInfiltratora/" + slovaVPrikazu[2]);
+            {
+                string? uzivatel = HttpContext.Session.GetString("uzivatel");
+                int? hra = HttpContext.Session.GetInt32("hra");
 
+                bool uspech = EngineController.PoslatInfiltratora(slovaVPrikazu[2], uzivatel, hra);
+
+                if (uspech)
+                    return View();
+                else
+                {
+
+                }
+
+
+            }
             else if (zadanyPrikaz == "send miner")
                 return Redirect("/Engine/PoslatTezebniJednotku/" + slovaVPrikazu[2]);
 

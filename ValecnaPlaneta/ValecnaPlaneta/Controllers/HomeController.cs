@@ -15,6 +15,9 @@ namespace ValecnaPlaneta.Controllers
 
         public IActionResult Index()
         {
+            HttpContext.Session.SetString("uzivatel", "pomelo");
+            HttpContext.Session.SetInt32("hra", 6);
+
             return View();
         }
 
