@@ -8,7 +8,8 @@ namespace ValecnaPlaneta.Models
     {
         [Key]
         public int Id { get; set; }
-        virtual public Hra HraKamPatri { get; set; }
+        public int Index { get; set; }
+        virtual public Hra? HraKamPatri { get; set; }
         public Stav Stav { get; set; }
         public string? Vlastnik { get; set; }
     }
