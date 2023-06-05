@@ -3,7 +3,7 @@ using System.Diagnostics;
 using ValecnaPlaneta.Models;
 
 namespace ValecnaPlaneta.Controllers
-{
+{ 
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

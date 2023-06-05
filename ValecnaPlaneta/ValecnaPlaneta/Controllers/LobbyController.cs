@@ -16,5 +16,11 @@ namespace ValecnaPlaneta.Controllers
 
             return View();
         }
+
+        [HttpGet]
+        public IActionResult Menu()
+        {
+            return View();
+        }
     }
 }
