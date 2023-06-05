@@ -2,7 +2,7 @@
 
 namespace ValecnaPlaneta.Controllers
 {
-    public class LobbyController : Controller
+        public class LobbyController : Controller
     {
         [HttpGet]
         public IActionResult Vytvor()
@@ -14,6 +14,17 @@ namespace ValecnaPlaneta.Controllers
         public IActionResult Vytvor(string jmeno, string heslo)
         {
 
+            return View();
+        }
+        [HttpGet]
+        public IActionResult Menu()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult Vyber()
+        {
             return View();
         }
     }
