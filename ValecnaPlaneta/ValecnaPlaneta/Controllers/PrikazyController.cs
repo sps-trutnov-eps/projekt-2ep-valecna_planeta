@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 
 namespace ValecnaPlaneta.Controllers
 {
@@ -7,13 +8,21 @@ namespace ValecnaPlaneta.Controllers
         [HttpGet]
         public IActionResult Index()
         {
+            string? Informace_o_Uzivateli = HttpContext.Session.GetString("uzivatel");
+            Debug.WriteLine(Informace_o_Uzivateli);
+            
             return View();
         }
 
         [HttpPost]
         public IActionResult Index(string zadanyPrikaz)
         {
-            if (zadanyPrikaz == null || zadanyPrikaz.Trim() == "")
+            string? uzivatel = HttpContext.Session.GetString("uzivatel");
+
+            if (!EngineController.Zije(uzivatel))
+                return View();
+
+                if (zadanyPrikaz == null || zadanyPrikaz.Trim() == "")
                 return View();
 
             zadanyPrikaz = zadanyPrikaz.Trim().ToLower();
@@ -36,9 +45,8 @@ namespace ValecnaPlaneta.Controllers
             else if (zadanyPrikaz == "capital")
             {
                 string? uzivatel = HttpContext.Session.GetString("uzivatel");
-
+                
                 bool uspech = EngineController.Kapital(uzivatel);
-
                 if (uspech)
                     return View();
                 else
@@ -139,5 +147,9 @@ namespace ValecnaPlaneta.Controllers
             }
         }
 
+        public IActionResult Konec()
+        { 
+            return View(); 
+        }
     }
 }
