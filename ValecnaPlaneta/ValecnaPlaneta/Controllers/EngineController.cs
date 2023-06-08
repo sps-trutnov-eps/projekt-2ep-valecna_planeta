@@ -9,61 +9,131 @@ namespace ValecnaPlaneta.Controllers
         private NasDbContext naseData;
         int StartovniPocetPolicek = 50;
         int PridavekPolicek = 20;
-        int prijemZaPolicko = 50;
+        int prijemZaPolicko = 1;
+        int cenaInfiltratora = 1000;
+        int cenaTezebniJednotky = 200;
+        int cenaVojaka = 500;
+        int cenaScouta = 100;
 
         public EngineController(NasDbContext databaze)
         {
             naseData = databaze;
         }
-        public string PoslatScouta(int id)
+        public bool Zije(string tokenHrace)
         {
-            throw new NotImplementedException();
+            Hrac kontrolni = naseData.Hraci.Where(h => h.Token == tokenHrace).First();
+            if (kontrolni.Zije) return true;
+            else return false;
         }
-        public void PoslatTezebniJednotku(int id) 
+        public Stav? PoslatScouta(int cisloPolicka, string tokenHrace, string tokenHry)
         {
-            Policko? pracovni = naseData.Policka.Where(p => p.Id == id).FirstOrDefault();
+            List<Policko> polickaHry = naseData.Policka.Where(p => p.HraKamPatri.Token == tokenHry).ToList();
+            Policko? pracovni = polickaHry.Where(p => p.Index == cisloPolicka).FirstOrDefault();
             if (pracovni != null)
             {
-                if (pracovni.Stav == Stav.Prazdno)
+                Hrac pracovniHrac = naseData.Hraci.Where(h => h.Token == tokenHrace).First();
+                int prijem = (int)((DateTime.Now - pracovniHrac.CasPosledniAkce).TotalSeconds) * prijemZaPolicko;
+                pracovniHrac.CasPosledniAkce = DateTime.Now;
+                pracovniHrac.Kapital += prijem;
+
+                if (pracovniHrac.Kapital > cenaScouta)
+                {
+                    pracovniHrac.Kapital -= cenaScouta;
+                    if (pracovni.Stav == Stav.Prazdno)
+                        return Stav.Prazdno;
+                    else if (pracovni.Stav == Stav.Zabrano)
+                        return Stav.Zabrano;
+                    else if (pracovni.Stav == Stav.Bunkr)
+                        return Stav.Bunkr;
+                }
+
+                naseData.SaveChanges();
+                return null;
+            }
+            else
+                return null;
+        }
+        public bool PoslatTezebniJednotku(int cisloPolicka, string tokenHrace, string tokenHry) 
+        {
+            List<Policko> polickaHry = naseData.Policka.Where(p => p.HraKamPatri.Token == tokenHry).ToList();
+            Policko? pracovni = polickaHry.Where(p => p.Index == cisloPolicka).FirstOrDefault();
+            if (pracovni != null)
+            {
+                Hrac pracovniHrac = naseData.Hraci.Where(h => h.Token == tokenHrace).First();
+                int prijem = (int)((DateTime.Now - pracovniHrac.CasPosledniAkce).TotalSeconds) * prijemZaPolicko;
+                pracovniHrac.CasPosledniAkce = DateTime.Now;
+                pracovniHrac.Kapital += prijem;
+
+                if (pracovni.Stav == Stav.Prazdno && pracovniHrac.Kapital > cenaTezebniJednotky)
+                {
                     pracovni.Stav = Stav.Zabrano;
+                    pracovni.Vlastnik = pracovniHrac.Token;
+                    pracovniHrac.Kapital -= cenaTezebniJednotky;
+                }
+
+                naseData.SaveChanges();
+                return true;
             }
-            naseData.SaveChanges();
+            else
+                return false;
         }
-        public void PoslatVojaka(int id) 
+        public bool PoslatVojaka(int cisloPolicka, string tokenHrace, string tokenHry) 
         {
-            Policko? pracovni = naseData.Policka.Where(p => p.Id == id).FirstOrDefault();
+            List<Policko> polickaHry = naseData.Policka.Where(p => p.HraKamPatri.Token == tokenHry).ToList();
+            Policko? pracovni = polickaHry.Where(p => p.Index == cisloPolicka).FirstOrDefault();
             if (pracovni != null)
             {
-                if (pracovni.Stav != Stav.Bunkr)
+                Hrac pracovniHrac = naseData.Hraci.Where(h => h.Token == tokenHrace).First();
+                int prijem = (int)((DateTime.Now - pracovniHrac.CasPosledniAkce).TotalSeconds) * prijemZaPolicko;
+                pracovniHrac.CasPosledniAkce = DateTime.Now;
+                pracovniHrac.Kapital += prijem;
+
+                if (pracovni.Stav == Stav.Zabrano && pracovniHrac.Kapital > cenaVojaka)
                 {
                     pracovni.Stav = Stav.Prazdno;
                     pracovni.Vlastnik = null;
+                    pracovniHrac.Kapital -= cenaVojaka;
                 }
+
+                naseData.SaveChanges();
+                return true;
             }
-            naseData.SaveChanges();
+            else
+                return false;
         }
-        public bool PoslatInfiltratora(int id)
+        public bool PoslatInfiltratora(int cisloPolicka, string tokenHrace, string tokenHry)
         {
-            Policko? pracovni = naseData.Policka.Where(p => p.Id == id).FirstOrDefault();
+            List<Policko> polickaHry = naseData.Policka.Where(p => p.HraKamPatri.Token == tokenHry).ToList();
+            Policko? pracovni = polickaHry.Where(p => p.Index == cisloPolicka).FirstOrDefault();
             if (pracovni != null)
             {
-                if (pracovni.Stav == Stav.Bunkr)
+                Hrac pracovniHrac = naseData.Hraci.Where(h => h.Token == tokenHrace).First();
+                int prijem = (int)((DateTime.Now - pracovniHrac.CasPosledniAkce).TotalSeconds) * prijemZaPolicko;
+                pracovniHrac.CasPosledniAkce = DateTime.Now;
+                pracovniHrac.Kapital += prijem;
+
+                if (pracovni.Stav == Stav.Bunkr && pracovniHrac.Kapital > cenaInfiltratora)
                 {
                     pracovni.Stav = Stav.Prazdno;
-                    Hrac hracSkomirajici = pracovni.Vlastnik;
+                    string adresaSmrti = pracovni.Vlastnik;
                     pracovni.Vlastnik = null;
+                    Hrac hracUmirajici = naseData.Hraci.Where(h => h.Token == adresaSmrti).First();
+                    hracUmirajici.Zije = false;
+                    pracovniHrac.Kapital -= cenaInfiltratora;
                 }
+
                 naseData.SaveChanges();
                 return true;   
             }
             else
-            {
                 return false;
-            }
         }
         public int? Kapital(string TokenHrace)
         {
-            Hrac? pracovniHrac = naseData.Hraci.Where(h => h.Token == TokenHrace).FirstOrDefault();
+            Hrac pracovniHrac = naseData.Hraci.Where(h => h.Token == TokenHrace).First();
+            int prijem = (int)((DateTime.Now - pracovniHrac.CasPosledniAkce).TotalSeconds) * prijemZaPolicko;
+            pracovniHrac.CasPosledniAkce = DateTime.Now;
+            pracovniHrac.Kapital += prijem;
             if (pracovniHrac != null)
                 return pracovniHrac.Kapital;
             else
@@ -71,10 +141,13 @@ namespace ValecnaPlaneta.Controllers
         }
         public int? Prijem(string TokenHrace)
         {
-            Hrac? pracovniHrac = naseData.Hraci.Where(h => h.Token == TokenHrace).FirstOrDefault();
-            if (pracovniHrac == null)
+            Hrac pracovniHrac = naseData.Hraci.Where(h => h.Token == TokenHrace).First();
+            int prijem = (int)((DateTime.Now - pracovniHrac.CasPosledniAkce).TotalSeconds) * prijemZaPolicko;
+            pracovniHrac.CasPosledniAkce = DateTime.Now;
+            pracovniHrac.Kapital += prijem;
+            if (pracovniHrac != null)
             {
-                List<Policko> vlastnenaPolicka = naseData.Policka.Where(p => p.Vlastnik == pracovniHrac).ToList();
+                List<Policko> vlastnenaPolicka = naseData.Policka.Where(p => p.Vlastnik == pracovniHrac.Token).ToList();
                 return vlastnenaPolicka.Count * prijemZaPolicko;
             }
             else

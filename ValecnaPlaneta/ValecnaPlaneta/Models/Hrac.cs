@@ -13,5 +13,6 @@ namespace ValecnaPlaneta.Models
         [Required]
         public int? Kapital { get; set; }
         public string? Token { get; set; }
+        public DateTime CasPosledniAkce { get; set; }
     }
 }
