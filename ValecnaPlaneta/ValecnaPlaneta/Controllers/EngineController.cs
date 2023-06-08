@@ -9,6 +9,7 @@ namespace ValecnaPlaneta.Controllers
         private NasDbContext naseData;
         int StartovniPocetPolicek = 50;
         int PridavekPolicek = 20;
+        int prijemZaPolicko = 50;
 
         public EngineController(NasDbContext databaze)
         {
@@ -49,6 +50,7 @@ namespace ValecnaPlaneta.Controllers
                 if (pracovni.Stav == Stav.Bunkr)
                 {
                     pracovni.Stav = Stav.Prazdno;
+                    Hrac hracSkomirajici = pracovni.Vlastnik;
                     pracovni.Vlastnik = null;
                 }
                 naseData.SaveChanges();
@@ -63,14 +65,20 @@ namespace ValecnaPlaneta.Controllers
         {
             Hrac? pracovniHrac = naseData.Hraci.Where(h => h.Token == TokenHrace).FirstOrDefault();
             if (pracovniHrac != null)
-            {
                 return pracovniHrac.Kapital;
-            }
-            return null;
+            else
+                return null;
         }
-        public int Prijem(string TokenHrace)
+        public int? Prijem(string TokenHrace)
         {
-            throw new NotImplementedException();
+            Hrac? pracovniHrac = naseData.Hraci.Where(h => h.Token == TokenHrace).FirstOrDefault();
+            if (pracovniHrac == null)
+            {
+                List<Policko> vlastnenaPolicka = naseData.Policka.Where(p => p.Vlastnik == pracovniHrac).ToList();
+                return vlastnenaPolicka.Count * prijemZaPolicko;
+            }
+            else
+                return null;
         }
 
         public Policko PridatPole(int index, Hra kamPatri)

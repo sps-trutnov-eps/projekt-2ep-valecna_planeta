@@ -11,6 +11,6 @@ namespace ValecnaPlaneta.Models
         public int Index { get; set; }
         virtual public Hra? HraKamPatri { get; set; }
         public Stav Stav { get; set; }
-        public string? Vlastnik { get; set; }
+        virtual public Hrac? Vlastnik { get; set; }
     }
 }
