@@ -128,30 +128,24 @@ namespace ValecnaPlaneta.Controllers
             else
                 return false;
         }
-        public int? Kapital(string TokenHrace)
+        public int Kapital(string TokenHrace)
         {
             Hrac pracovniHrac = naseData.Hraci.Where(h => h.Token == TokenHrace).First();
             int prijem = (int)((DateTime.Now - pracovniHrac.CasPosledniAkce).TotalSeconds) * prijemZaPolicko;
             pracovniHrac.CasPosledniAkce = DateTime.Now;
             pracovniHrac.Kapital += prijem;
-            if (pracovniHrac != null)
-                return pracovniHrac.Kapital;
-            else
-                return null;
+
+            return pracovniHrac.Kapital;
         }
-        public int? Prijem(string TokenHrace)
+        public int Prijem(string TokenHrace)
         {
             Hrac pracovniHrac = naseData.Hraci.Where(h => h.Token == TokenHrace).First();
             int prijem = (int)((DateTime.Now - pracovniHrac.CasPosledniAkce).TotalSeconds) * prijemZaPolicko;
             pracovniHrac.CasPosledniAkce = DateTime.Now;
             pracovniHrac.Kapital += prijem;
-            if (pracovniHrac != null)
-            {
-                List<Policko> vlastnenaPolicka = naseData.Policka.Where(p => p.Vlastnik == pracovniHrac.Token).ToList();
-                return vlastnenaPolicka.Count * prijemZaPolicko;
-            }
-            else
-                return null;
+            List<Policko> vlastnenaPolicka = naseData.Policka.Where(p => p.Vlastnik == pracovniHrac.Token).ToList();
+            return vlastnenaPolicka.Count * prijemZaPolicko;
+            
         }
 
         public Policko PridatPole(int index, Hra kamPatri)
