@@ -35,9 +35,9 @@ namespace ValecnaPlaneta.Controllers
 
             else if (zadanyPrikaz == "capital")
             {
-                int? hra = HttpContext.Session.GetInt32("hra");
+                string? uzivatel = HttpContext.Session.GetString("uzivatel");
 
-                bool uspech = EngineController.Prijem(hra);
+                bool uspech = EngineController.Kapital(uzivatel);
 
                 if (uspech)
                     return View();
