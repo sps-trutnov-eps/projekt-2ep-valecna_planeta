@@ -46,3 +46,18 @@ button.accept-policy {
   white-space: nowrap;
   line-height: 60px;
 }
+
+#container{
+    width: 1000px;
+    height: 500px;
+    margin: 0 auto;
+}
+
+table {
+    border-collapse: collapse;
+    margin-left: auto;
+    margin-right: auto;
+    text-decoration: rgb(0 0 0);
+    border: solid rgb(0, 0, 0);
+}
+
