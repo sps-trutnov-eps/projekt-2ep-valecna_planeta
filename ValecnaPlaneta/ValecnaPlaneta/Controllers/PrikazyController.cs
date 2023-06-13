@@ -1,10 +1,19 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using ValecnaPlaneta.Data;
+using ValecnaPlaneta.Models;
 
 namespace ValecnaPlaneta.Controllers
 {
     public class PrikazyController : Controller
     {
+        private Engine _engine;
+
+        public PrikazyController(NasDbContext dbContext)
+        {
+            _engine = new Engine(dbContext);
+        }
+
         [HttpGet]
         public IActionResult Index()
         {
@@ -18,8 +27,9 @@ namespace ValecnaPlaneta.Controllers
         public IActionResult Index(string zadanyPrikaz)
         {
             string? uzivatel = HttpContext.Session.GetString("uzivatel");
+            string? hra = HttpContext.Session.GetString("hra");
 
-            if (!EngineController.Zije(uzivatel))
+            if (!_engine.Zije(uzivatel))
                 return View();
 
                 if (zadanyPrikaz == null || zadanyPrikaz.Trim() == "")
@@ -29,31 +39,14 @@ namespace ValecnaPlaneta.Controllers
 
             if (zadanyPrikaz == "income")
             {
-                string? uzivatel = HttpContext.Session.GetString("uzivatel");
-
-                bool uspech = EngineController.Prijem(uzivatel);
-
-                if (uspech)
-                    return View();
-                else
-                {
-                    ViewData["chyba"] = "Wrong syntax. Write Help for more information.";
-                    return View();
-                }
+                int hodnota = _engine.Prijem(uzivatel);
+                return View();
             }
 
             else if (zadanyPrikaz == "capital")
             {
-                string? uzivatel = HttpContext.Session.GetString("uzivatel");
-                
-                bool uspech = EngineController.Kapital(uzivatel);
-                if (uspech)
-                    return View();
-                else
-                {
-                    ViewData["chyba"] = "Wrong syntax. Write Help for more information.";
-                    return View();
-                }
+                int hodnota = _engine.Kapital(uzivatel);
+                return View();
             }
 
             else if (zadanyPrikaz == "help")
@@ -76,26 +69,20 @@ namespace ValecnaPlaneta.Controllers
 
             if (zadanyPrikaz == "send scout")
             {
-                string? uzivatel = HttpContext.Session.GetString("uzivatel");
-                int? hra = HttpContext.Session.GetInt32("hra");
+                Stav? policko = _engine.PoslatScouta(cislo, uzivatel, hra);
 
-                bool uspech = EngineController.PoslatScouta(slovaVPrikazu[2], uzivatel, hra);
+                string zprava;
+                if (policko == Stav.Zabrano)
+                    zprava = "Toto pole je zabráno nepřítelem!";
+                else if (policko == Stav.Prazdno)
+                    zprava = "Toto pole je prázdné!";
 
-                if (uspech)
-                    return View();
-                else
-                {
-                    ViewData["chyba"] = "Wrong syntax. Write Help for more information.";
-                    return View();
-                }
+                return View();
             }
 
             else if (zadanyPrikaz == "send soldier")
             {
-                string? uzivatel = HttpContext.Session.GetString("uzivatel");
-                int? hra = HttpContext.Session.GetInt32("hra");
-
-                bool uspech = EngineController.PoslatVojaka(slovaVPrikazu[2], uzivatel, hra);
+                bool uspech = _engine.PoslatVojaka(cislo, uzivatel, hra);
 
                 if (uspech)
                     return View();
@@ -108,10 +95,7 @@ namespace ValecnaPlaneta.Controllers
 
             else if (zadanyPrikaz == "send infiltrator")
             {
-                string? uzivatel = HttpContext.Session.GetString("uzivatel");
-                int? hra = HttpContext.Session.GetInt32("hra");
-
-                bool uspech = EngineController.PoslatInfiltratora(slovaVPrikazu[2], uzivatel, hra);
+                bool uspech = _engine.PoslatInfiltratora(cislo, uzivatel, hra);
 
                 if (uspech)
                     return View();
@@ -124,10 +108,7 @@ namespace ValecnaPlaneta.Controllers
             }
             else if (zadanyPrikaz == "send miner") 
             {
-                string? uzivatel = HttpContext.Session.GetString("uzivatel");
-                int? hra = HttpContext.Session.GetInt32("hra");
-
-                bool uspech = EngineController.PoslatTezebniJednotku(slovaVPrikazu[2], uzivatel, hra);
+                bool uspech = _engine.PoslatTezebniJednotku(cislo, uzivatel, hra);
 
                 if (uspech)
                     return View();

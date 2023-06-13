@@ -1,10 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using ValecnaPlaneta.Data;
+﻿using ValecnaPlaneta.Data;
 using ValecnaPlaneta.Models;
 
-namespace ValecnaPlaneta.Controllers
+namespace ValecnaPlaneta
 {
-    public class EngineController : Controller
+    public class Engine
     {
         private NasDbContext naseData;
         int StartovniPocetPolicek = 50;
@@ -15,7 +14,7 @@ namespace ValecnaPlaneta.Controllers
         int cenaVojaka = 500;
         int cenaScouta = 100;
 
-        public EngineController(NasDbContext databaze)
+        public Engine(NasDbContext databaze)
         {
             naseData = databaze;
         }
@@ -32,7 +31,7 @@ namespace ValecnaPlaneta.Controllers
             if (pracovni != null)
             {
                 Hrac pracovniHrac = naseData.Hraci.Where(h => h.Token == tokenHrace).First();
-                int prijem = (int)((DateTime.Now - pracovniHrac.CasPosledniAkce).TotalSeconds) * prijemZaPolicko;
+                int prijem = (int)(DateTime.Now - pracovniHrac.CasPosledniAkce).TotalSeconds * prijemZaPolicko;
                 pracovniHrac.CasPosledniAkce = DateTime.Now;
                 pracovniHrac.Kapital += prijem;
 
@@ -53,14 +52,14 @@ namespace ValecnaPlaneta.Controllers
             else
                 return null;
         }
-        public bool PoslatTezebniJednotku(int cisloPolicka, string tokenHrace, string tokenHry) 
+        public bool PoslatTezebniJednotku(int cisloPolicka, string tokenHrace, string tokenHry)
         {
             List<Policko> polickaHry = naseData.Policka.Where(p => p.HraKamPatri.Token == tokenHry).ToList();
             Policko? pracovni = polickaHry.Where(p => p.Index == cisloPolicka).FirstOrDefault();
             if (pracovni != null)
             {
                 Hrac pracovniHrac = naseData.Hraci.Where(h => h.Token == tokenHrace).First();
-                int prijem = (int)((DateTime.Now - pracovniHrac.CasPosledniAkce).TotalSeconds) * prijemZaPolicko;
+                int prijem = (int)(DateTime.Now - pracovniHrac.CasPosledniAkce).TotalSeconds * prijemZaPolicko;
                 pracovniHrac.CasPosledniAkce = DateTime.Now;
                 pracovniHrac.Kapital += prijem;
 
@@ -77,14 +76,14 @@ namespace ValecnaPlaneta.Controllers
             else
                 return false;
         }
-        public bool PoslatVojaka(int cisloPolicka, string tokenHrace, string tokenHry) 
+        public bool PoslatVojaka(int cisloPolicka, string tokenHrace, string tokenHry)
         {
             List<Policko> polickaHry = naseData.Policka.Where(p => p.HraKamPatri.Token == tokenHry).ToList();
             Policko? pracovni = polickaHry.Where(p => p.Index == cisloPolicka).FirstOrDefault();
             if (pracovni != null)
             {
                 Hrac pracovniHrac = naseData.Hraci.Where(h => h.Token == tokenHrace).First();
-                int prijem = (int)((DateTime.Now - pracovniHrac.CasPosledniAkce).TotalSeconds) * prijemZaPolicko;
+                int prijem = (int)(DateTime.Now - pracovniHrac.CasPosledniAkce).TotalSeconds * prijemZaPolicko;
                 pracovniHrac.CasPosledniAkce = DateTime.Now;
                 pracovniHrac.Kapital += prijem;
 
@@ -108,7 +107,7 @@ namespace ValecnaPlaneta.Controllers
             if (pracovni != null)
             {
                 Hrac pracovniHrac = naseData.Hraci.Where(h => h.Token == tokenHrace).First();
-                int prijem = (int)((DateTime.Now - pracovniHrac.CasPosledniAkce).TotalSeconds) * prijemZaPolicko;
+                int prijem = (int)(DateTime.Now - pracovniHrac.CasPosledniAkce).TotalSeconds * prijemZaPolicko;
                 pracovniHrac.CasPosledniAkce = DateTime.Now;
                 pracovniHrac.Kapital += prijem;
 
@@ -123,7 +122,7 @@ namespace ValecnaPlaneta.Controllers
                 }
 
                 naseData.SaveChanges();
-                return true;   
+                return true;
             }
             else
                 return false;
@@ -131,7 +130,7 @@ namespace ValecnaPlaneta.Controllers
         public int Kapital(string TokenHrace)
         {
             Hrac pracovniHrac = naseData.Hraci.Where(h => h.Token == TokenHrace).First();
-            int prijem = (int)((DateTime.Now - pracovniHrac.CasPosledniAkce).TotalSeconds) * prijemZaPolicko;
+            int prijem = (int)(DateTime.Now - pracovniHrac.CasPosledniAkce).TotalSeconds * prijemZaPolicko;
             pracovniHrac.CasPosledniAkce = DateTime.Now;
             pracovniHrac.Kapital += prijem;
 
@@ -140,12 +139,12 @@ namespace ValecnaPlaneta.Controllers
         public int Prijem(string TokenHrace)
         {
             Hrac pracovniHrac = naseData.Hraci.Where(h => h.Token == TokenHrace).First();
-            int prijem = (int)((DateTime.Now - pracovniHrac.CasPosledniAkce).TotalSeconds) * prijemZaPolicko;
+            int prijem = (int)(DateTime.Now - pracovniHrac.CasPosledniAkce).TotalSeconds * prijemZaPolicko;
             pracovniHrac.CasPosledniAkce = DateTime.Now;
             pracovniHrac.Kapital += prijem;
             List<Policko> vlastnenaPolicka = naseData.Policka.Where(p => p.Vlastnik == pracovniHrac.Token).ToList();
             return vlastnenaPolicka.Count * prijemZaPolicko;
-            
+
         }
 
         public Policko PridatPole(int index, Hra kamPatri)
@@ -163,15 +162,15 @@ namespace ValecnaPlaneta.Controllers
 
             novaHra.Token = VytvorToken();
             novaHra.Policka = new List<Policko>();
-            while(naseData.Hry.Where(h => h.Token == novaHra.Token).FirstOrDefault() != null)
+            while (naseData.Hry.Where(h => h.Token == novaHra.Token).FirstOrDefault() != null)
             {
                 novaHra.Token = VytvorToken();
             }
-            for(int i = 0; i < StartovniPocetPolicek; i++)
+            for (int i = 0; i < StartovniPocetPolicek; i++)
             {
                 novaHra.Policka.Add(PridatPole(i + 1, novaHra));
             }
-            naseData.Hry.Add(novaHra); 
+            naseData.Hry.Add(novaHra);
             naseData.SaveChanges();
         }
         public string VytvorToken()
