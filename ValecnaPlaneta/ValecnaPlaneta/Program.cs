@@ -36,7 +36,7 @@ namespace ValecnaPlaneta
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=Lobby}/{action=Menu}/{id?}");
 
             app.Run();
         }
