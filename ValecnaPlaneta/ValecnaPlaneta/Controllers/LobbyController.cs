@@ -1,9 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ValecnaPlaneta.Data;
 
 namespace ValecnaPlaneta.Controllers
 {
-        public class LobbyController : Controller
+    public class LobbyController : Controller
     {
+        private Engine _engine;
+        public LobbyController(NasDbContext dbContext) 
+        {
+            _engine = new Engine(dbContext);
+        }
+
         [HttpGet]
         public IActionResult Vytvor()
         {          
@@ -11,9 +18,11 @@ namespace ValecnaPlaneta.Controllers
         }
 
         [HttpPost]
-        public IActionResult Vytvor(string jmeno, string heslo)
+        public IActionResult Vytvor(string jmeno, string? heslo)
         {
-
+            Tuple<string,string> dataDoSessionu = _engine.PridatHru(jmeno, heslo);
+            HttpContext.Session.SetString("uzivatel", dataDoSessionu.Item1);
+            HttpContext.Session.SetString("hra", dataDoSessionu.Item2);
             return View();
         }
         [HttpGet]

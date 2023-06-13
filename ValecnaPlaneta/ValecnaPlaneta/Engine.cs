@@ -13,6 +13,7 @@ namespace ValecnaPlaneta
         int cenaTezebniJednotky = 200;
         int cenaVojaka = 500;
         int cenaScouta = 100;
+        int vychoziKapital = 1000;
 
         public Engine(NasDbContext databaze)
         {
@@ -155,10 +156,18 @@ namespace ValecnaPlaneta
 
             return novePole;
         }
-        public void PridatHru()
+        public Tuple<string,string> PridatHru(string jmeno, string? heslo)
         {
             Hra novaHra = new Hra();
-            novaHra.Soukroma = false;
+            if (heslo == null)
+                novaHra.Soukroma = false;
+            else
+            {
+                novaHra.Soukroma = true;
+                novaHra.Heslo = heslo;
+            }
+
+            novaHra.Jmeno = jmeno;
 
             novaHra.Token = VytvorToken();
             novaHra.Policka = new List<Policko>();
@@ -171,8 +180,32 @@ namespace ValecnaPlaneta
                 novaHra.Policka.Add(PridatPole(i + 1, novaHra));
             }
             naseData.Hry.Add(novaHra);
+
+            Hrac novyHrac = PridatHrace(novaHra);
+
             naseData.SaveChanges();
+
+            return new Tuple<string, string>(novyHrac.Token, novaHra.Token);
         }
+
+        public Hrac PridatHrace(Hra hraDoKterePatri)
+        {
+            Hrac novyHrac = new Hrac();
+            novyHrac.HraKamPatri = hraDoKterePatri;
+            novyHrac.Zije = true;
+            novyHrac.Kapital = vychoziKapital;
+            novyHrac.Token = VytvorToken();
+            while (naseData.Hraci.Where(h => h.Token == novyHrac.Token).FirstOrDefault() != null)
+            {
+                novyHrac.Token = VytvorToken();
+            }
+            novyHrac.CasPosledniAkce = DateTime.Now;
+
+            naseData.Hraci.Add(novyHrac);
+            naseData.SaveChanges();
+            return novyHrac;
+        }
+
         public string VytvorToken()
         {
             Random nahoda = new Random();
