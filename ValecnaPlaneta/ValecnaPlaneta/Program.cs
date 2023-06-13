@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+
 namespace ValecnaPlaneta
 {
     public class Program
@@ -9,6 +11,14 @@ namespace ValecnaPlaneta
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
+            builder.Services.AddDbContext<Data.NasDbContext>(options =>
+                options.UseLazyLoadingProxies()
+                .UseSqlServer(builder.Configuration.GetConnectionString("NasConnectionString")));
+            
+            builder.Services.AddSession(options => {
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
+                options.Cookie.IsEssential = true;
+            });
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -16,6 +26,8 @@ namespace ValecnaPlaneta
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+            app.UseSession();
+
             app.UseStaticFiles();
 
             app.UseRouting();
