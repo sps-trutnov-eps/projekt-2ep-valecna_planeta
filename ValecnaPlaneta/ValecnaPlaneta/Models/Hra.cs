@@ -10,6 +10,7 @@ namespace ValecnaPlaneta.Models
         public bool Soukroma { get; set; }
         [Required]
         public string? Token { get; set; }
+        public string? Heslo { get; set; }
         virtual public List<Policko>? Policka { get; set; }
         virtual public List<Hrac>? Hraci { get; set; }
     }
