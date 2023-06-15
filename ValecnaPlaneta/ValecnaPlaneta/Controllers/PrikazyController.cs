@@ -56,9 +56,14 @@ namespace ValecnaPlaneta.Controllers
                 ViewData["message"] = "Available commands: Help, Income, Capital, Send + soldier/scout/miner/infiltrator + number of position";
                 return View();
             }
+            else if (!zadanyPrikaz.Contains(" "))
+            { 
+                ViewData["message"] = "Wrong syntax. Write Help for more information.";
+                return View();
+            }
 
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            
+
             string[] slovaVPrikazu = zadanyPrikaz.Split(' ');
             zadanyPrikaz = (slovaVPrikazu[0] + " " + slovaVPrikazu[1]);
 
