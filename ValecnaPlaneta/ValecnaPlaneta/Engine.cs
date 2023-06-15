@@ -180,6 +180,8 @@ namespace ValecnaPlaneta
             }
             naseData.Hry.Add(novaHra);
 
+            naseData.SaveChanges();
+
             Hrac novyHrac = PridatHrace(novaHra);
 
             naseData.SaveChanges();
