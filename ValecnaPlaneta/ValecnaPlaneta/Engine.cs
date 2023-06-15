@@ -32,9 +32,7 @@ namespace ValecnaPlaneta
             if (pracovni != null)
             {
                 Hrac pracovniHrac = naseData.Hraci.Where(h => h.Token == tokenHrace).First();
-                int prijem = (int)(DateTime.Now - pracovniHrac.CasPosledniAkce).TotalSeconds * prijemZaPolicko;
-                pracovniHrac.CasPosledniAkce = DateTime.Now;
-                pracovniHrac.Kapital += prijem;
+                pracovniHrac.Kapital += PridatPrachy(pracovniHrac);
 
                 if (pracovniHrac.Kapital > cenaScouta)
                 {
@@ -60,9 +58,7 @@ namespace ValecnaPlaneta
             if (pracovni != null)
             {
                 Hrac pracovniHrac = naseData.Hraci.Where(h => h.Token == tokenHrace).First();
-                int prijem = (int)(DateTime.Now - pracovniHrac.CasPosledniAkce).TotalSeconds * prijemZaPolicko;
-                pracovniHrac.CasPosledniAkce = DateTime.Now;
-                pracovniHrac.Kapital += prijem;
+                pracovniHrac.Kapital += PridatPrachy(pracovniHrac);
 
                 if (pracovni.Stav == Stav.Prazdno && pracovniHrac.Kapital > cenaTezebniJednotky)
                 {
@@ -84,9 +80,7 @@ namespace ValecnaPlaneta
             if (pracovni != null)
             {
                 Hrac pracovniHrac = naseData.Hraci.Where(h => h.Token == tokenHrace).First();
-                int prijem = (int)(DateTime.Now - pracovniHrac.CasPosledniAkce).TotalSeconds * prijemZaPolicko;
-                pracovniHrac.CasPosledniAkce = DateTime.Now;
-                pracovniHrac.Kapital += prijem;
+                pracovniHrac.Kapital += PridatPrachy(pracovniHrac);
 
                 if (pracovni.Stav == Stav.Zabrano && pracovniHrac.Kapital > cenaVojaka)
                 {
@@ -108,9 +102,7 @@ namespace ValecnaPlaneta
             if (pracovni != null)
             {
                 Hrac pracovniHrac = naseData.Hraci.Where(h => h.Token == tokenHrace).First();
-                int prijem = (int)(DateTime.Now - pracovniHrac.CasPosledniAkce).TotalSeconds * prijemZaPolicko;
-                pracovniHrac.CasPosledniAkce = DateTime.Now;
-                pracovniHrac.Kapital += prijem;
+                pracovniHrac.Kapital += PridatPrachy(pracovniHrac);
 
                 if (pracovni.Stav == Stav.Bunkr && pracovniHrac.Kapital > cenaInfiltratora)
                 {
@@ -131,21 +123,28 @@ namespace ValecnaPlaneta
         public int Kapital(string TokenHrace)
         {
             Hrac pracovniHrac = naseData.Hraci.Where(h => h.Token == TokenHrace).First();
-            int prijem = (int)(DateTime.Now - pracovniHrac.CasPosledniAkce).TotalSeconds * prijemZaPolicko;
-            pracovniHrac.CasPosledniAkce = DateTime.Now;
-            pracovniHrac.Kapital += prijem;
+            pracovniHrac.Kapital += PridatPrachy(pracovniHrac);
 
             return pracovniHrac.Kapital;
         }
         public int Prijem(string TokenHrace)
         {
             Hrac pracovniHrac = naseData.Hraci.Where(h => h.Token == TokenHrace).First();
-            int prijem = (int)(DateTime.Now - pracovniHrac.CasPosledniAkce).TotalSeconds * prijemZaPolicko;
-            pracovniHrac.CasPosledniAkce = DateTime.Now;
-            pracovniHrac.Kapital += prijem;
+            pracovniHrac.Kapital += PridatPrachy(pracovniHrac);
             List<Policko> vlastnenaPolicka = naseData.Policka.Where(p => p.Vlastnik == pracovniHrac.Token).ToList();
             return vlastnenaPolicka.Count * prijemZaPolicko;
 
+        }
+
+        public int PridatPrachy(Hrac hrac)
+        {
+            int prijem = 0;
+
+            List<Policko> poleHrace = naseData.Policka.Where(p => p.Vlastnik ==  hrac.Token).ToList();
+            prijem = (int)(DateTime.Now - hrac.CasPosledniAkce).TotalSeconds * prijemZaPolicko * poleHrace.Count;
+            hrac.CasPosledniAkce = DateTime.Now;
+
+            return prijem;
         }
 
         public Policko PridatPole(int index, Hra kamPatri)
@@ -202,6 +201,13 @@ namespace ValecnaPlaneta
             novyHrac.CasPosledniAkce = DateTime.Now;
 
             naseData.Hraci.Add(novyHrac);
+
+            List<Policko> poleHry = naseData.Policka.Where(p => p.Stav == Stav.Prazdno).ToList();
+            Random nahoda = new Random();
+            Policko poleProBunkr = poleHry[nahoda.Next(0, poleHry.Count)];
+            poleProBunkr.Stav = Stav.Bunkr;
+            poleProBunkr.Vlastnik = novyHrac.Token;
+
             naseData.SaveChanges();
             return novyHrac;
         }
