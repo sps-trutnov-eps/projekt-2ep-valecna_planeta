@@ -201,6 +201,13 @@ namespace ValecnaPlaneta
             novyHrac.CasPosledniAkce = DateTime.Now;
 
             naseData.Hraci.Add(novyHrac);
+
+            List<Policko> poleHry = naseData.Policka.Where(p => p.Stav == Stav.Prazdno).ToList();
+            Random nahoda = new Random();
+            Policko poleProBunkr = poleHry[nahoda.Next(0, poleHry.Count)];
+            poleProBunkr.Stav = Stav.Bunkr;
+            poleProBunkr.Vlastnik = novyHrac.Token;
+
             naseData.SaveChanges();
             return novyHrac;
         }
