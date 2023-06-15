@@ -1,11 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace ValecnaPlaneta.Migrations
 {
     /// <inheritdoc />
-    public partial class BudizSvetlo : Migration
+    public partial class PrvniAleNeTakDocelaPrvniMigrace : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -17,7 +18,9 @@ namespace ValecnaPlaneta.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Soukroma = table.Column<bool>(type: "bit", nullable: false),
-                    Token = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Token = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Jmeno = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Heslo = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -28,10 +31,13 @@ namespace ValecnaPlaneta.Migrations
                 name: "Hraci",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     HraKamPatriId = table.Column<int>(type: "int", nullable: false),
                     Zije = table.Column<bool>(type: "bit", nullable: false),
-                    Kapital = table.Column<int>(type: "int", nullable: false)
+                    Kapital = table.Column<int>(type: "int", nullable: false),
+                    Token = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CasPosledniAkce = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -50,8 +56,10 @@ namespace ValecnaPlaneta.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Index = table.Column<int>(type: "int", nullable: false),
                     HraKamPatriId = table.Column<int>(type: "int", nullable: false),
-                    Vlastnik = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Stav = table.Column<int>(type: "int", nullable: false),
+                    Vlastnik = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {

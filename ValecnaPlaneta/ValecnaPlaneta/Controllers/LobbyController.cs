@@ -23,7 +23,7 @@ namespace ValecnaPlaneta.Controllers
             Tuple<string,string> dataDoSessionu = _engine.PridatHru(jmeno, heslo);
             HttpContext.Session.SetString("uzivatel", dataDoSessionu.Item1);
             HttpContext.Session.SetString("hra", dataDoSessionu.Item2);
-            return View();
+            return Redirect("/Prikazy/Index/");
         }
         [HttpGet]
         public IActionResult Menu()

@@ -40,18 +40,20 @@ namespace ValecnaPlaneta.Controllers
             if (zadanyPrikaz == "income")
             {
                 int hodnota = _engine.Prijem(uzivatel);
+                ViewData["message"] = hodnota.ToString();
                 return View();
             }
 
             else if (zadanyPrikaz == "capital")
             {
                 int hodnota = _engine.Kapital(uzivatel);
+                ViewData["message"] = hodnota.ToString();
                 return View();
             }
 
             else if (zadanyPrikaz == "help")
             {
-                ViewData["help"] = "Available commands: Help, Income, Capital, Send + soldier/scout/miner/infiltrator + number of position";
+                ViewData["message"] = "Available commands: Help, Income, Capital, Send + soldier/scout/miner/infiltrator + number of position";
                 return View();
             }
 
@@ -63,7 +65,7 @@ namespace ValecnaPlaneta.Controllers
             int cislo;
             if (slovaVPrikazu.Length < 3 || !int.TryParse(slovaVPrikazu[2], out cislo))
             {
-                ViewData["chyba"] = "Wrong syntax. Write Help for more information.";
+                ViewData["message"] = "Wrong syntax. Write Help for more information.";
                 return View();
             }
 
@@ -71,11 +73,14 @@ namespace ValecnaPlaneta.Controllers
             {
                 Stav? policko = _engine.PoslatScouta(cislo, uzivatel, hra);
 
-                string zprava;
+                string zprava = "";
                 if (policko == Stav.Zabrano)
                     zprava = "Toto pole je zabráno nepřítelem!";
                 else if (policko == Stav.Prazdno)
                     zprava = "Toto pole je prázdné!";
+                else if (policko == Stav.Bunkr)
+                    zprava = "Na tomto poli se nachází nepřátelský bunkr!";
+                ViewData["message"] = zprava;
 
                 return View();
             }

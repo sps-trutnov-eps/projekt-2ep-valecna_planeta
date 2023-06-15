@@ -48,7 +48,7 @@ namespace ValecnaPlaneta.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Hry", (string)null);
+                    b.ToTable("Hry");
                 });
 
             modelBuilder.Entity("ValecnaPlaneta.Models.Hrac", b =>
@@ -78,7 +78,7 @@ namespace ValecnaPlaneta.Migrations
 
                     b.HasIndex("HraKamPatriId");
 
-                    b.ToTable("Hraci", (string)null);
+                    b.ToTable("Hraci");
                 });
 
             modelBuilder.Entity("ValecnaPlaneta.Models.Policko", b =>
@@ -105,7 +105,7 @@ namespace ValecnaPlaneta.Migrations
 
                     b.HasIndex("HraKamPatriId");
 
-                    b.ToTable("Policka", (string)null);
+                    b.ToTable("Policka");
                 });
 
             modelBuilder.Entity("ValecnaPlaneta.Models.Hrac", b =>
