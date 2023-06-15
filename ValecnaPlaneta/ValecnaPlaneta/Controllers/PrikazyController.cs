@@ -16,16 +16,14 @@ namespace ValecnaPlaneta.Controllers
 
         [HttpGet]
         public IActionResult Index()
-        {
-            string? Informace_o_Uzivateli = HttpContext.Session.GetString("uzivatel");
-            Debug.WriteLine(Informace_o_Uzivateli);
-            
+        {            
             return View();
         }
 
         [HttpPost]
-        public IActionResult Index(string zadanyPrikaz)
+        public IActionResult Index(string zadanyPrikaz, string poznamkyVelitele)
         {
+            ViewData["notepad"] = poznamkyVelitele;
             string? uzivatel = HttpContext.Session.GetString("uzivatel");
             string? hra = HttpContext.Session.GetString("hra");
 
@@ -56,9 +54,14 @@ namespace ValecnaPlaneta.Controllers
                 ViewData["message"] = "Available commands: Help, Income, Capital, Send + soldier/scout/miner/infiltrator + number of position";
                 return View();
             }
+            else if (!zadanyPrikaz.Contains(" "))
+            { 
+                ViewData["message"] = "Wrong syntax. Write Help for more information.";
+                return View();
+            }
 
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            
+
             string[] slovaVPrikazu = zadanyPrikaz.Split(' ');
             zadanyPrikaz = (slovaVPrikazu[0] + " " + slovaVPrikazu[1]);
 
@@ -75,7 +78,7 @@ namespace ValecnaPlaneta.Controllers
 
                 string zprava = "";
                 if (policko == Stav.Zabrano)
-                    zprava = "Toto pole je zabráno nepřítelem!";
+                    zprava = "Toto pole je zabráno!";
                 else if (policko == Stav.Prazdno)
                     zprava = "Toto pole je prázdné!";
                 else if (policko == Stav.Bunkr)
