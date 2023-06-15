@@ -218,7 +218,7 @@ namespace ValecnaPlaneta
             string token = "";
             for (int i = 0; i < 3; i++)
             {
-                token += nahoda.Next('A', 'Z' + 1);
+                token += (char) (nahoda.Next('A', 'Z' + 1));
             }
             return token;
         }
