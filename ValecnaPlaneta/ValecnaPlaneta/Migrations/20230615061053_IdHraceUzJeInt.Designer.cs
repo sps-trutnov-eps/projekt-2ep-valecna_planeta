@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ValecnaPlaneta.Data;
 
@@ -11,9 +12,11 @@ using ValecnaPlaneta.Data;
 namespace ValecnaPlaneta.Migrations
 {
     [DbContext(typeof(NasDbContext))]
-    partial class NasDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230615061053_IdHraceUzJeInt")]
+    partial class IdHraceUzJeInt
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,7 +51,7 @@ namespace ValecnaPlaneta.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Hry", (string)null);
+                    b.ToTable("Hry");
                 });
 
             modelBuilder.Entity("ValecnaPlaneta.Models.Hrac", b =>
@@ -78,7 +81,7 @@ namespace ValecnaPlaneta.Migrations
 
                     b.HasIndex("HraKamPatriId");
 
-                    b.ToTable("Hraci", (string)null);
+                    b.ToTable("Hraci");
                 });
 
             modelBuilder.Entity("ValecnaPlaneta.Models.Policko", b =>
@@ -105,7 +108,7 @@ namespace ValecnaPlaneta.Migrations
 
                     b.HasIndex("HraKamPatriId");
 
-                    b.ToTable("Policka", (string)null);
+                    b.ToTable("Policka");
                 });
 
             modelBuilder.Entity("ValecnaPlaneta.Models.Hrac", b =>

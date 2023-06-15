@@ -5,7 +5,7 @@ namespace ValecnaPlaneta.Models
     public class Hrac
     {
         [Key]
-        public string Id { get; set; }
+        public int Id { get; set; }
         [Required]
         virtual public Hra? HraKamPatri { get; set; }
         [Required]
