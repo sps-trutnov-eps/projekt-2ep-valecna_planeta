@@ -16,14 +16,16 @@
                         @if (hra.Soukroma)
                         {
                             <form action="/Lobby/Heslo">
-                                <input type="submit" value="@hra.Jmeno" style="border: none; background-color: white; width: 300px; height: 150px;" />
+                                <input type="submit" name="jmenoHry" value="@hra.Jmeno" style="border: none; background-color: white; width: 300px; height: 150px;" />
+                                <input type="hidden" name="tokenHry" value="@hra.Token" />
                                 <span>(soukromá)</span>
                             </form>
                         }
                         else
                         {
-                            <form action="/Prikazy/Index">
-                                <input type="submit" value="@hra.Jmeno" style="border: none; background-color: white; width: 300px; height: 150px;" />
+                            <form action="/Lobby/Pripojit">
+                                <input type="submit" name="jmenoHry" value="@hra.Jmeno" style="border: none; background-color: white; width: 300px; height: 150px;" />
+                                <input type="hidden" name="tokenHry" value="@hra.Token" />
                             </form>
                         }
                     </td>

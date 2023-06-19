@@ -1,4 +1,7 @@
-﻿<form action="/Prikazy/index"  style="text-align:center; margin-top: 300px; font-size: 4em;">
-    <input type="password" placeholder="Heslo" name="Heslo"/>
-     <input type="submit" value="Připojit" name="Heslo"/>
+﻿@model Hra
+
+<form action="/Lobby/Heslo" method="post" style="text-align:center; margin-top: 300px; font-size: 4em;">
+    <input type="password" placeholder="Heslo..." name="hesloDoHry" />
+    <input type="hidden" name="tokenHry" value="@Model.Token" />
+    <input type="submit" value="Připojit" />
 </form>
