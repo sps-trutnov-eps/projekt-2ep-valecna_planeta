@@ -236,5 +236,22 @@ namespace ValecnaPlaneta
             }
             return token;
         }
+
+        public void BunkrAZvetseniMapy(Hra hraKdePridavam, Hrac hracKteremuPridavam)
+        {
+            List<Policko> poleHry = naseData.Policka.Where(p => p.HraKamPatri == hraKdePridavam).ToList();
+            int posledniIndex = poleHry[poleHry.Count - 1].Index;
+            for (int i = 0; i < PridavekPolicek; i++)
+            {
+                hraKdePridavam.Policka.Add(PridatPole(posledniIndex + 1, hraKdePridavam));
+            }
+            naseData.SaveChanges();
+
+            List<Policko> volnaPole = naseData.Policka.Where(p => p.Stav == Stav.Prazdno).ToList();
+            Random nahoda = new Random();
+            Policko poleProBunkr = volnaPole[nahoda.Next(0, poleHry.Count)];
+            poleProBunkr.Stav = Stav.Bunkr;
+            poleProBunkr.Vlastnik = hracKteremuPridavam.Token;
+        }
     }
 }
