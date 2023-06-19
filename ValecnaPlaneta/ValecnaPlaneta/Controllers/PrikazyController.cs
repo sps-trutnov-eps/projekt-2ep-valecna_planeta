@@ -82,7 +82,7 @@ namespace ValecnaPlaneta.Controllers
                 else if (policko == Stav.Prazdno)
                     zprava = "Toto pole je prázdné!";
                 else if (policko == Stav.Bunkr)
-                    zprava = "Na tomto poli se nachází nepřátelský bunkr!";
+                    zprava = "Na tomto poli se nachází bunkr!";
                 ViewData["message"] = zprava;
 
                 return View();
