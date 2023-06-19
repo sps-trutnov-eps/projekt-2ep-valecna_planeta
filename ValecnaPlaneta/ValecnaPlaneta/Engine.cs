@@ -66,6 +66,10 @@ namespace ValecnaPlaneta
                     pracovni.Vlastnik = pracovniHrac.Token;
                     pracovniHrac.Kapital -= cenaTezebniJednotky;
                 }
+                else if (pracovni.Stav != Stav.Prazdno && pracovniHrac.Kapital > cenaTezebniJednotky)
+                {
+                    pracovniHrac.Kapital -= cenaTezebniJednotky;
+                }
 
                 naseData.SaveChanges();
                 return true;
@@ -86,6 +90,10 @@ namespace ValecnaPlaneta
                 {
                     pracovni.Stav = Stav.Prazdno;
                     pracovni.Vlastnik = null;
+                    pracovniHrac.Kapital -= cenaVojaka;
+                }
+                else if (pracovni.Stav != Stav.Zabrano && pracovniHrac.Kapital > cenaVojaka)
+                {
                     pracovniHrac.Kapital -= cenaVojaka;
                 }
 
@@ -111,6 +119,10 @@ namespace ValecnaPlaneta
                     pracovni.Vlastnik = null;
                     Hrac hracUmirajici = naseData.Hraci.Where(h => h.Token == adresaSmrti).First();
                     hracUmirajici.Zije = false;
+                    pracovniHrac.Kapital -= cenaInfiltratora;
+                }
+                else if (pracovni.Stav != Stav.Bunkr && pracovniHrac.Kapital > cenaInfiltratora)
+                {
                     pracovniHrac.Kapital -= cenaInfiltratora;
                 }
 
