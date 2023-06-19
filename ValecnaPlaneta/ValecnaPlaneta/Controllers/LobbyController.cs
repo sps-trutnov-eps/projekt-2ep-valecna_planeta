@@ -78,6 +78,7 @@ namespace ValecnaPlaneta.Controllers
         {
             // pripojeni se do probihajici hry
             Hrac novyHrac = _engine.PridatHrace(hraKamSePripojuji);
+            _engine.BunkrAZvetseniMapy(hraKamSePripojuji, novyHrac);
 
             HttpContext.Session.SetString("uzivatel", novyHrac.Token);
             HttpContext.Session.SetString("hra", hraKamSePripojuji.Token);
