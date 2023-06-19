@@ -2,20 +2,32 @@
 @model ValecnaPlaneta.Views.Lobby.MenuModel
 @{
 }
+<!DOCTYPE html>
+<html lang="cs">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Kanit&family=Rye&display=swap" rel="stylesheet">
+    </head>
+    <body style="background-color: darkolivegreen; margin: 0 auto; font-family: 'Kanit', sans-serif;">
+    <h1 style="text-align:center; margin-top: 50px; font-size:4em; color:whitesmoke;">
+                Válečná planeta
+            </h1>
+            <div style="font-size:2em;">
+                <table id="vytvor" style="">
+                    <tr>
+                        <th> <form action="/Lobby/Vytvor"> <input type="submit" value="Nová hra" style="border: none; background-color: white;  width: 300px; height: 150px;" /> </form> </th>
+                    </tr>
+                </table>
+                <table id="vyber">
+                    <tr>
+                        <th> <form action="/Lobby/Vyber"> <input type="submit" value="Připojit" style="border: none; background-color: white; width: 300px; height: 150px; " /> </form> </th>
+                    </tr>
+                </table>
+             </div>               
+    </body>
+</html>
 
-<link />
-
-
-<div id="menu">
-    <table id="vytvor">
-        <tr>
-            <th> <form action="/Lobby/Vytvor"> <input type="submit" value="Nová hra" style="border: none; background-color: white;  width: 300px; height: 150px; "/> </form> </th>
-        </tr>
-    </table>
-    <table id="vyber">
-        <tr>
-            <th> <form action="/Lobby/Vyber"> <input type="submit" value="Připojit" style="border: none; background-color: white; width: 300px; height: 150px; "/> </form> </th>
-        </tr>
-    </table>
-</div>
