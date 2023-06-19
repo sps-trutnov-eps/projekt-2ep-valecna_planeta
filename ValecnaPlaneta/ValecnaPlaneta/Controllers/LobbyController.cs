@@ -1,14 +1,19 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using ValecnaPlaneta.Data;
+using ValecnaPlaneta.Models;
 
 namespace ValecnaPlaneta.Controllers
 {
     public class LobbyController : Controller
     {
         private Engine _engine;
+        private NasDbContext _context;
+
         public LobbyController(NasDbContext dbContext) 
         {
-            _engine = new Engine(dbContext);
+            _context = dbContext;
+            _engine = new Engine(_context);
         }
 
         [HttpGet]
@@ -34,7 +39,9 @@ namespace ValecnaPlaneta.Controllers
         [HttpGet]
         public IActionResult Vyber()
         {
-            return View();
+            List<Hra> hry = _context.Hry.ToList();
+
+            return View(hry);
         }
 
         [HttpGet]
