@@ -243,7 +243,7 @@ namespace ValecnaPlaneta
             int posledniIndex = poleHry[poleHry.Count - 1].Index;
             for (int i = 0; i < PridavekPolicek; i++)
             {
-                hraKdePridavam.Policka.Add(PridatPole(posledniIndex + 1, hraKdePridavam));
+                hraKdePridavam.Policka.Add(PridatPole(posledniIndex + 1 + i, hraKdePridavam));
             }
             naseData.SaveChanges();
 
