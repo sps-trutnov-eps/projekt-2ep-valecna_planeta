@@ -216,9 +216,10 @@ namespace ValecnaPlaneta
 
             naseData.Hraci.Add(novyHrac);
 
-            List<Policko> poleHry = naseData.Policka.Where(p => p.Stav == Stav.Prazdno).ToList();
+            List<Policko> poleHry = naseData.Policka.Where(p => p.HraKamPatri == hraDoKterePatri).ToList();
+            List<Policko> prazdnaPole = poleHry.Where(p => p.Stav == Stav.Prazdno).ToList();
             Random nahoda = new Random();
-            Policko poleProBunkr = poleHry[nahoda.Next(0, poleHry.Count)];
+            Policko poleProBunkr = prazdnaPole[nahoda.Next(0, prazdnaPole.Count)];
             poleProBunkr.Stav = Stav.Bunkr;
             poleProBunkr.Vlastnik = novyHrac.Token;
 
