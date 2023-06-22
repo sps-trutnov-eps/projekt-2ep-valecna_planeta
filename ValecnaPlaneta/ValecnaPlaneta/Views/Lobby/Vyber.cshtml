@@ -8,16 +8,16 @@
     else
     {
         <table id="vyber">
-            <tr>
-                @foreach (Hra hra in @Model)
-                {
+            @foreach (Hra hra in @Model)
+            {
+                <tr>
                     <td>
                         <form action="/Lobby/Heslo">
-                            <input type="submit" value="@hra.Jmeno" style="border: none; background-color: white; width: 300px; height: 150px;" />
+                            <input type="submit" value="@hra.Jmeno" style=" background-color: white; width: 300px; height: 150px;" />
                         </form>
                     </td>
-                }
-            </tr>
+                </tr>
+            }           
         </table>
     }
 </div>
