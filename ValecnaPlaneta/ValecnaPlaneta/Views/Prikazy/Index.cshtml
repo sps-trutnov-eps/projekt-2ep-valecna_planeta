@@ -1,17 +1,13 @@
 ﻿@model int?
-@{
-    ViewData["Title"] = "Home Page";
-}
 
-    <form method="post" action="/Prikazy/Index">
-        <input type="text" name="zadanyPrikaz" placeholder="Zadejte příkaz..." />
-        <br/>
+<form method="post" action="/Prikazy/Index">
+    <input type="text" name="zadanyPrikaz" placeholder="Zadejte příkaz..." />
+    <br />
     <textarea name="poznamkyVelitele" cols="50" rows="20">@ViewData["notepad"]</textarea>
 </form>
 
-    <span>@ViewData["message"]</span>
-@if(Model != null)
+<span>@ViewData["message"]</span>
+@if (Model != null)
 {
-    <span>Tvůj bunkr se nachází v sektoru @Model</span>    
+    <span>Tvůj bunkr se nachází v sektoru @Model</span>
 }
-
