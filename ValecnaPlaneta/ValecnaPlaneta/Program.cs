@@ -13,7 +13,7 @@ namespace ValecnaPlaneta
 
             builder.Services.AddDbContext<Data.NasDbContext>(options =>
                 options.UseLazyLoadingProxies()
-                .UseSqlServer(builder.Configuration.GetConnectionString("NasConnectionString")));
+                .UseSqlServer(builder.Configuration.GetConnectionString("Default")));
             
             builder.Services.AddSession(options => {
                 options.IdleTimeout = TimeSpan.FromMinutes(30);
