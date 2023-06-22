@@ -16,8 +16,9 @@ namespace ValecnaPlaneta.Controllers
 
         [HttpGet]
         public IActionResult Index()
-        {            
-            return View();
+        {
+            int poziceHrace = _engine.KdeJsem(HttpContext.Session.GetString("uzivatel"));
+            return View(poziceHrace);
         }
 
         [HttpPost]

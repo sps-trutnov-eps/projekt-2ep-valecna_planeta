@@ -1,4 +1,5 @@
-﻿@{
+﻿@model int?
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -9,4 +10,8 @@
 </form>
 
     <span>@ViewData["message"]</span>
+@if(Model != null)
+{
+    <span>Tvůj bunkr se nachází v sektoru @Model</span>    
+}
 

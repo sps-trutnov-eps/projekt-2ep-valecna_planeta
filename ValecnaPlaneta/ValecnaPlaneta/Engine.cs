@@ -253,5 +253,17 @@ namespace ValecnaPlaneta
             poleProBunkr.Stav = Stav.Bunkr;
             poleProBunkr.Vlastnik = hracKteremuPridavam.Token;
         }
+
+        public int KdeJsem(string tokenHrace)
+        {
+            List<Policko> poleSBunkry = naseData.Policka.Where(p => p.Stav == Stav.Bunkr).ToList();
+            int IndexPolohyBunkru = 0;
+            for (int i = 0; i < poleSBunkry.Count; i++)
+            {
+                if (poleSBunkry[i].Vlastnik == tokenHrace)
+                    IndexPolohyBunkru = poleSBunkry[i].Index;
+            }
+            return IndexPolohyBunkru;
+        }
     }
 }
