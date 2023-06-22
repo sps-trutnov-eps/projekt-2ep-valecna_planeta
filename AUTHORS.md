@@ -1,13 +1,22 @@
-Černák Vojtěch
-Frejvald Ondřej
-Hejna Daniel
+# Hlavní vývojáři
+
 Kačer Šimon
-Kettner Samuel
-Klápště Ondřej
-Kobrle Martin
 Kotek Pavel
-Kratochvíl Petr
-Krejbich Václav
-Krejzl Dominik
+
+# Také vývojáři
+
+Frejvald Ondřej
 Kroulík Matěj
+Krejbich Václav
+Kobrle Martin
+Klápště Ondřej
+
+# Nezúčastnění
+
+Černák Vojtěch
+Hejna Daniel
+Kettner Samuel
+Kratochvíl Petr
+Krejzl Dominik
 Svoboda Tomáš
+
