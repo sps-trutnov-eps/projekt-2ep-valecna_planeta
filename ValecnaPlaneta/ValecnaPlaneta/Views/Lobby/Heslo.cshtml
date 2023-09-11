@@ -1,7 +1,7 @@
 ﻿@model Hra
 
 <form action="/Lobby/Heslo" method="post" style="text-align:center; margin-top: 300px; font-size: 4em;">
-    <input type="password" placeholder="Heslo..." name="hesloDoHry" />
+    <input type="password" placeholder="Password..." name="hesloDoHry" />
     <input type="hidden" name="tokenHry" value="@Model.Token" />
     <input type="submit" value="Připojit" />
 </form>
