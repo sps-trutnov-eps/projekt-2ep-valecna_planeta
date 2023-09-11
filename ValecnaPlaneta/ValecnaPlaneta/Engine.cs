@@ -266,5 +266,11 @@ namespace ValecnaPlaneta
             }
             return IndexPolohyBunkru;
         }
+
+        public void SmazatHrace(string tokenHrace)
+        {
+            Hrac naVymazani = naseData.Hraci.Where(h => h.Token == tokenHrace).First();
+            naVymazani.HraKamPatri = null;
+        }
     }
 }
