@@ -31,7 +31,7 @@ namespace ValecnaPlaneta.Controllers
             if (!_engine.Zije(uzivatel))
             {
                 _engine.SmazatHrace(uzivatel);
-                return Redirect("/Lobby/Menu/");
+                return Redirect("/Prikazy/Konec/");
             }
 
             zadanyPrikaz = zadanyPrikaz.Trim().ToLower();
