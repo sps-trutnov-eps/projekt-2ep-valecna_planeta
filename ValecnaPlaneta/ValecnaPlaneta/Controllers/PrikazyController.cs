@@ -29,10 +29,10 @@ namespace ValecnaPlaneta.Controllers
             string? hra = HttpContext.Session.GetString("hra");
 
             if (!_engine.Zije(uzivatel))
-                return View();
-
-                if (zadanyPrikaz == null || zadanyPrikaz.Trim() == "")
-                return View();
+            {
+                _engine.SmazatHrace(uzivatel);
+                return Redirect("/Lobby/Menu/");
+            }
 
             zadanyPrikaz = zadanyPrikaz.Trim().ToLower();
 
