@@ -79,11 +79,11 @@ namespace ValecnaPlaneta.Controllers
 
                 string zprava = "";
                 if (policko == Stav.Zabrano)
-                    zprava = "Toto pole je zabráno!";
+                    zprava = "This field is taken!";
                 else if (policko == Stav.Prazdno)
-                    zprava = "Toto pole je prázdné!";
+                    zprava = "This field is empty!";
                 else if (policko == Stav.Bunkr)
-                    zprava = "Na tomto poli se nachází bunkr!";
+                    zprava = "There is a bunker on this field!";
                 ViewData["message"] = zprava;
 
                 return View();
