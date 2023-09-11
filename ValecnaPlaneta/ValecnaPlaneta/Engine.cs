@@ -6,14 +6,15 @@ namespace ValecnaPlaneta
     public class Engine
     {
         private NasDbContext naseData;
-        int StartovniPocetPolicek = 50;
-        int PridavekPolicek = 20;
-        int prijemZaPolicko = 1;
-        int cenaInfiltratora = 1000;
-        int cenaTezebniJednotky = 200;
-        int cenaVojaka = 500;
-        int cenaScouta = 100;
-        int vychoziKapital = 1000;
+
+        public int StartovniPocetPolicek { get; } = 50;
+        public int PridavekPolicek { get; } = 20;
+        public int prijemZaPolicko { get; } = 1;
+        public int cenaInfiltratora { get; } = 1000;
+        public int cenaTezebniJednotky { get; } = 200;
+        public int cenaVojaka { get; } = 500;
+        public int cenaScouta { get; } = 100;
+        public int vychoziKapital { get; } = 1000;
 
         public Engine(NasDbContext databaze)
         {

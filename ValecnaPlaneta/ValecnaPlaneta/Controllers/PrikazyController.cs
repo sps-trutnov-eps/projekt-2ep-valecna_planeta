@@ -52,7 +52,7 @@ namespace ValecnaPlaneta.Controllers
 
             else if (zadanyPrikaz == "help")
             {
-                ViewData["message"] = "Available commands: Help, Income, Capital, Send + soldier/scout/miner/infiltrator + number of position";
+                ViewData["message"] = $"Available commands: HELP, INCOME, CAPITAL, SEND [soldier|scout|miner|infiltrator] <sector number> (Pricing: Soldier {_engine.cenaVojaka}, Scout {_engine.cenaScouta}, Miner {_engine.cenaTezebniJednotky}, Infiltrator {_engine.cenaInfiltratora})";
                 return View();
             }
             else if (!zadanyPrikaz.Contains(" "))
